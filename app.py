@@ -18,7 +18,7 @@ def change_direction():
     if direction_data['direction'] == 'right':
         response = "right"
 
-    return jsonify({"direction":response})
+    return jsonify({"direction": response})
 
 
 @app.route('/')
@@ -27,4 +27,4 @@ def hello_world():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0')
