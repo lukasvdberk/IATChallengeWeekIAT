@@ -64,6 +64,9 @@ class Rijden:
         # Als die 2 keer op hetzelfde punt vast zit dan moet ie anders draaien
         prev_vast_zit_state_left = ""
         prev_vast_zit_state_right = ""
+
+        achter_knop_not_pressed = datetime.now().timestamp()
+
         while True:
             links_btn = GPIO.input(16)
             links_btn2 = GPIO.input(20)
@@ -128,7 +131,9 @@ class Rijden:
                 GPIO.output(23, 0)
 
             # TODO change to ==
-            if achter_knop == 1:
+            curr_timestamp = datetime.now().timestamp()
+
+            if achter_knop == 1 and (curr_timestamp - achter_knop_not_pressed) >= 2:
                 requests.post(url="http://localhost:5000/push_death")
                 self.stop_servo = True
                 GPIO.output(24, 1)
@@ -153,7 +158,8 @@ class Rijden:
                     if curr_timestamp - time_not_hit >= 3:
                         requests.post(url="http://localhost:5000/push_end")
                         exit()
-
+            if achter_knop != 1:
+                achter_knop_not_pressed = datetime.now().timestamp()
 
 if __name__ == "__main__":
     try:
