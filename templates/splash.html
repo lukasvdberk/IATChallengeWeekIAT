@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename = 'js/change_kart_direction.js') }}"></script>
+
+    <style>
+        button {
+            width: 49.5%;
+            border: white solid;
+            background-color: white;
+        }
+        button:hover {
+            background-color: blue;
+        }
+    </style>
+    <title>Gebruikersinput Kart</title>
+</head>
+<body>
+    <button onclick='changeDirection("left");'>
+        <img src="{{ url_for('static', filename = 'images/left.svg') }}" alt="left_button">
+    </button>
+    <button onclick='changeDirection("right");'>
+        <img src="{{ url_for('static', filename = 'images/right.svg') }}" alt="left_button">
+    </button>
+</body>
+</html>

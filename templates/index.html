@@ -2,14 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename = 'js/change_kart_direction.js') }}"></script>
-
+    <script src="{{ url_for('static', filename = 'js/socketio.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'js/on_death.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'js/start.js') }}"></script>
+    
     <style>
+        @font-face {
+          font-family: mario-kart-font;
+          src: url('{{ url_for('static', filename = 'fonts/SuperMario256.ttf') }}');
+        }
+        button, h1, h2, h3, h4, h5, h6, p {
+            font-family: mario-kart-font;
+        }
+        body {
+            background: url('{{ url_for('static', filename = 'images/background.png') }}');
+            text-align: center;
+        }
         button {
-            width: 49.5%;
-            border: white solid;
-            background-color: white;
+            width: 49%;
+            background-color: black;
+            border: black solid 5px;
         }
         button:active {
             background-color: blue;
@@ -18,11 +31,32 @@
     <title>Gebruikersinput Kart</title>
 </head>
 <body>
+    <button onclick='start();' style="font-size: 120px; border: black solid 2px; width:100%; color: lightblue; border: white solid 5px;margin-top:5%;margin-bottom:5%;">
+        Start
+    </button>
+    <br>
     <button onclick='changeDirection("left");'>
-        <img src="{{ url_for('static', filename = 'images/left.svg') }}" alt="left_button">
+        <img src="{{ url_for('static', filename = 'images/left.png') }}" alt="left_button">
     </button>
     <button onclick='changeDirection("right");'>
-        <img src="{{ url_for('static', filename = 'images/right.svg') }}" alt="left_button">
+        <img src="{{ url_for('static', filename = 'images/right.png') }}" alt="right_button">
     </button>
+    <h1 id="status" style="color: white; font-size: 80px;"></h1>
+    <audio id="death_audio">
+      <source src="{{ url_for('static', filename = 'sounds/death_sound.mp3') }}" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <audio id="start_audio">
+      <source src="{{ url_for('static', filename = 'sounds/start_sound.mp3') }}" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <audio id="hit_sound">
+      <source src="{{ url_for('static', filename = 'sounds/hit_sound.mp3') }}" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <audio id="game_over">
+      <source src="{{ url_for('static', filename = 'sounds/game_over.mp3') }}" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
 </body>
 </html>
